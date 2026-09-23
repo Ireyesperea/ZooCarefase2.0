@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class ZooCareMain{
     
-    private static final String Myzoo = null;
     private static MVC.src.model.Zoo myZoo = null;
     private static Scanner reader = new Scanner(System.in);
     public static void main(String [] args){
@@ -49,7 +48,7 @@ public class ZooCareMain{
         System.out.println("Digite el presupuesto del zoologico");
         double budget = reader.nextDouble();
 
-        myZoo = new MVC.src.model.Zoo(name, city, budget);
+        myZoo = new MVC.src.model.Zoo(name, city, city, budget);
     }
 
     public static void showGeneralInformation(){
@@ -72,7 +71,7 @@ public class ZooCareMain{
 
 public static void regitrerAnimall(){
 
-    if (Myzoo != null){
+    if (myZoo != null){
 
         String name;
         double weight;
@@ -80,11 +79,8 @@ public static void regitrerAnimall(){
         String lifeSTage;
         String healthStatus;
     }else{
-        System.out.println("Error! No hay habitats disponibles");
-
+        System.out.println("Error! Zoologico aun no registrado");
     }
-}else{
-    System.out.println("Error! Zoologico aun no registrado");
 }
 
 }
