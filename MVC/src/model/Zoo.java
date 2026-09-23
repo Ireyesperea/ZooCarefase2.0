@@ -1,66 +1,47 @@
 package MVC.src.model;
 
-public class Zoo {
-    
+ public class Zoo{
+
+    // Atributes
     private String name;
     private String city;
-    private double budget;
-    private Habitat[] myHabitats;
+    private String address;
+    private double budget; 
 
-    public Zoo(String name, String city, double budget){
+    public Zoo(String name, String city, String address, double budget) {
 
         this.name = name;
         this.city = city;
+        this.address = address;
         this.budget = budget;
-        myHabitats = new Habitat[33];
+
+        Habitat[] myHabitats = new Habitat[33];
+
+ }
+
+ public String getInformation() {
+     return name + "-" + city + "-" + address + "-" + budget;
+
+}
+
+     public void setName(String name) {
+        this.name = name;
     }
 
-    public String  getGeneralInformation(){
-
-        return "Nombre: " + name + "\nCiudad: " + city + "\nPresuspuesto;: " + budget;
-
+    public void setCity(String city) {
+        this.city = city;
     }
 
-
-    public boolean registerHabitat(String name, String enviroment , double area){
-        int position = getAvailableHabitatsSpace();
-
-        if (position > -1) {
-
-            Habitat newHabitat = new Habitat(name, enviroment, area);
-            myHabitats[position] = newHabitat;
-            return true;
-        }
-        return false;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    private int getAvailableHabitatsSpace() {
-        for (int i = 0; i < myHabitats.length; i++) {
-            if (myHabitats[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public void setNameZoo(String newName){
-
-        name = newName;
-    }
-
-    public void setCityZoo(String newCity){
-
-        city = newCity;
-    }
-
-    public void setBudgetZoo(double newBudget){
-
-        budget = newBudget;
+    public void setBudget(double budget) {
+        this.budget = budget;
     }
 
     public char[] showGeneralImformation() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'showGeneralImformation'");
     }
-}
-
+ }
