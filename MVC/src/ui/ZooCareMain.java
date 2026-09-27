@@ -1,8 +1,6 @@
 package ui;
 
 import model.Zoo;
-import model.Animal;
-import model.Habitat;
 import java.util.Scanner;
 public class ZooCareMain {
    private static Scanner reader;
@@ -97,7 +95,7 @@ public static <myZoo> void registerZooInformation() {
 
    public static void showZooInformation() {
       if (myZoo != null) {
-         System.out.println(((Object) myZoo).getInformation());
+         System.out.println(myZoo.getInformation());
       } else {
          System.out.println("Error! Zoologico aun no registrado");
       }
@@ -222,7 +220,7 @@ public static <myZoo> void showAnimalMonthlyFoodCost() {
          reader.nextLine();
          System.out.println("\nDigite el nombre del animal a consultar su costo mensual de alimentaciÃ³n");
          String var0 = reader.nextLine();
-         double var1 = ((Object) myZoo).getMonthlyFoodCostFromAnimal(var0);
+         double var1 = ((Zoo) myZoo).getMonthlyFoodCostFromAnimal(var0);
          if (var1 >= (double)0.0F) {
             System.out.printf("\nEl costo mensual de alimentacion de " + var0 + " es: $ %.2f%n", var1);
          } else {
