@@ -7,9 +7,9 @@ public class Feeding extends Activity {
     private String dietType;
     private double rationWeight;
 
-    public Feeding(String id, String sheduleDate , String executionDate , double rationWeight, String dietType, String animalId ){
+    public Feeding(String id, String scheduleDate , String executionDate , double rationWeight, String dietType, String animalId ){
         
-        super(id, sheduleDate, executionDate, PersonInCharge());
+        super(id, scheduleDate, executionDate, PersonInCharge());
         this.animalId = animalId;
         String habitatId = null;
         this.habiatatId = habitatId;

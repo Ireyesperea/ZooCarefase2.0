@@ -3,7 +3,7 @@ package model;
 public abstract class Activity {
     
     private  String id;
-    private  String sheduleDate;
+    protected  String scheduleDate;
     private  String executionDate;
     public  String personInCharge;
     private  String status; // estado de asignacion , de finalizacion y cancelacion
@@ -12,7 +12,7 @@ public abstract class Activity {
     public Activity(String id, String sheduleDate, String executionDate, String personInCharge){
 
         this.id = id;
-        this.sheduleDate = sheduleDate;
+        this.scheduleDate = sheduleDate;
         this.executionDate = executionDate;
         this.personInCharge = personInCharge;
         this.status = "asiganda";
@@ -36,7 +36,7 @@ public abstract class Activity {
     }
 
     public String getId() { return id;}
-    public String getSheduleDate() { return sheduleDate;}
+    public String getSheduleDate() { return scheduleDate;}
     public String getExecutionDate() { return executionDate;}
     public String getPersonInCharge() { return personInCharge;}
     public String getStatus() { return status;}
