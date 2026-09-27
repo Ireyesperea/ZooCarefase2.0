@@ -5,7 +5,7 @@ public abstract class Activity {
     private  String id;
     private  String sheduleDate;
     private  String executionDate;
-    private  String personInCharge;
+    public  String personInCharge;
     private  String status; // estado de asignacion , de finalizacion y cancelacion
     private  double cost;
 
