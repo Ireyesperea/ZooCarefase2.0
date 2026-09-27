@@ -40,5 +40,5 @@ public abstract class Activity {
     public String getExecutionDate() { return executionDate;}
     public String getPersonInCharge() { return personInCharge;}
     public String getStatus() { return status;}
-    public double getCost() { return cost;}
+    public double getCost() { return cost;} 
 }
