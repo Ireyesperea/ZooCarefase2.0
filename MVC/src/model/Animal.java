@@ -1,5 +1,6 @@
 // Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
-package model;
+
+   package model;
 
 public class Animal {
    private String name;
@@ -21,19 +22,19 @@ public class Animal {
       double var3 = (double)0.0F;
       double var5 = (double)0.0F;
       switch (this.dietType) {
-         case "carnivora":
+         case "carnivoro":
             var1 = 0.03;
             var3 = (double)25500.0F;
             break;
-         case "herbivora":
+         case "herbivoro":
             var1 = 0.04;
             var3 = (double)8800.0F;
             break;
-         case "omnivora":
+         case "omnivoro":
             var1 = 0.035;
             var3 = (double)15200.0F;
             break;
-         case "insectivora":
+         case "insectivoro":
             var1 = 0.025;
             var3 = (double)18300.0F;
       }
@@ -41,7 +42,7 @@ public class Animal {
       if (this.lifeStage.equals("juvenil")) {
          var5 = 0.2;
       } else if (!this.healthStatus.equals("cuarentena") && !this.healthStatus.equals("recuperacion")) {
-         if (this.healthStatus.equals("en observacion")) {
+         if (this.healthStatus.equals("observacion")) {
             var5 = 0.1;
          }
       } else {
@@ -51,17 +52,7 @@ public class Animal {
       return this.weight * var1 * ((double)1.0F + var5) * var3 * (double)30.0F;
    }
 
-   public String getName11() {
-      return this.name;
-   }
-
    public String getName() {
-	// TODO Auto-generated method stub
-	throw new UnsupportedOperationException("Unimplemented method 'getName'");
-   }
-
-   public String getName1() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getName'");
+      return this.name;
    }
 }

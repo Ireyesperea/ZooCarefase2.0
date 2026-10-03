@@ -13,17 +13,22 @@ public class Zoo {
       this.address = var3;
       this.budget = var4;
       this.myHabitats = new Habitat[33];
+      this.createVeterinaryClinic();
    }
 
    public String getInformation() {
       return this.name + "-" + this.city + "-" + this.address + "-" + this.budget;
    }
 
-   public boolean addHabitat(String var1, String var2, double var3) {
+   private void createVeterinaryClinic() {
+      this.addHabitat("Clinica Veterinaria", 4, (double)4.0E7F, 25);
+   }
+
+   public boolean addHabitat(String var1, int var2, double var3, int var5) {
       if (this.myHabitats != null) {
-         for(int var5 = 0; var5 < this.myHabitats.length; ++var5) {
-            if (this.myHabitats[var5] == null) {
-               this.myHabitats[var5] = new Habitat(var1, var2, var3);
+         for(int var6 = 0; var6 < this.myHabitats.length; ++var6) {
+            if (this.myHabitats[var6] == null) {
+               this.myHabitats[var6] = new Habitat(var1, this.calculateEnvironmentType(var2), var3, var5);
                return true;
             }
          }
@@ -49,7 +54,7 @@ public class Zoo {
       if (this.myHabitats != null) {
          for(int var2 = 0; var2 < this.myHabitats.length; ++var2) {
             if (this.myHabitats[var2] != null) {
-               var1 = var1 + "\n" + this.myHabitats[var2].getName() + "-" + this.myHabitats[var2].getEnvironment();
+               var1 = var1 + "\n" + this.myHabitats[var2].getName() + "-" + this.myHabitats[var2].getEnvironment().getTypeName();
             }
          }
       }
@@ -72,28 +77,30 @@ public class Zoo {
 
    public String getAllAnimalList() {
       String var1 = "";
-      if (this.myHabitats != null) {
-         for(int var2 = 0; var2 < this.myHabitats.length; ++var2) {
-            if (this.myHabitats[var2] != null) {
-               var1 = var1 + this.myHabitats[var2].getAnimalList() + "\n";
-            }
+
+      for(int var2 = 0; var2 < this.myHabitats.length; ++var2) {
+         if (this.myHabitats[var2] != null) {
+            var1 = var1 + this.myHabitats[var2].getAnimalList() + "\n";
          }
       }
 
       return var1;
    }
 
-   public double getMonthlyFoodCostFromAnimal(String var1) {
-      double var2 = (double)-1.0F;
-      if (this.myHabitats != null) {
-         for(int var4 = 0; var4 < this.myHabitats.length; ++var4) {
-            if (this.myHabitats[var4] != null && this.myHabitats[var4].hasAnimal(var1)) {
-               return this.myHabitats[var4].getAnimalMonthlyFoodCost(var1);
-            }
-         }
+   public EnvironmentType calculateEnvironmentType(int var1) {
+      EnvironmentType[] var2 = EnvironmentType.values();
+      return var2[var1 - 1];
+   }
+
+   public String getEnvironmentTypeList() {
+      String var1 = "";
+      EnvironmentType[] var2 = EnvironmentType.values();
+
+      for(int var3 = 0; var3 < var2.length; ++var3) {
+         var1 = var1 + (var3 + 1) + ". " + var2[var3].getTypeName() + "\n";
       }
 
-      return var2;
+      return var1;
    }
 
    public void setName(String var1) {

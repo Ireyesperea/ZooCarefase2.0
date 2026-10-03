@@ -1,7 +1,8 @@
 package ui;
 
-import model.Zoo;
 import java.util.Scanner;
+import model.Zoo;
+
 public class ZooCareMain {
    private static Scanner reader;
    private static Zoo myZoo;
@@ -25,7 +26,6 @@ public class ZooCareMain {
          System.out.println("4. Registrar habitat");
          System.out.println("5. Registrar animal");
          System.out.println("6. Mostrar lista de animales");
-         System.out.println("7. Consultar el costo mensual de alimentacion de un animal");
          System.out.println("0. Salir");
          var0 = reader.nextInt();
          switch (var0) {
@@ -49,9 +49,6 @@ public class ZooCareMain {
                break;
             case 6:
                showAnimalsRegistered();
-               break;
-            case 7:
-               showAnimalMonthlyFoodCost();
          }
 
          if (var0 != 0) {
@@ -73,8 +70,7 @@ public class ZooCareMain {
       return var0;
    }
 
-   @SuppressWarnings("hiding")
-public static <myZoo> void registerZooInformation() {
+   public static void registerZooInformation() {
       if (myZoo == null) {
          reader.nextLine();
          System.out.println("\nDigite el nombre del zoologico");
@@ -152,12 +148,15 @@ public static <myZoo> void registerZooInformation() {
          reader.nextLine();
          System.out.println("\nDigite el nombre del habitat");
          String var0 = reader.nextLine();
-         System.out.println("Digite el ambiente del habitat (acuatico, terrestre, etc.");
-         String var1 = reader.nextLine();
+         System.out.println("Digite el ambiente del habitat");
+         System.out.println(myZoo.getEnvironmentTypeList());
+         int var1 = reader.nextInt();
          System.out.println("Digite el area del habitat");
          double var2 = reader.nextDouble();
-         boolean var4 = myZoo.addHabitat(var0, var1, var2);
-         if (var4) {
+         System.out.println("Digite la capacidad maxima del habitat");
+         int var4 = reader.nextInt();
+         boolean var5 = myZoo.addHabitat(var0, var1, var2, var4);
+         if (var5) {
             System.out.println("Exito! Habitat registrado");
          } else {
             System.out.println("Error. Habitat no registrado");
@@ -202,30 +201,10 @@ public static <myZoo> void registerZooInformation() {
 
    }
 
-   @SuppressWarnings("hiding")
-public static <myZoo> void showAnimalsRegistered() {
+   public static void showAnimalsRegistered() {
       if (myZoo != null) {
          System.out.println("Lista de animales registrados");
          System.out.println(myZoo.getAllAnimalList());
-      } else {
-         System.out.println("Error! Zoologico aun no registrado");
-      }
-
-   }
-
-   @SuppressWarnings("hiding")
-public static <myZoo> void showAnimalMonthlyFoodCost() {
-      if (myZoo != null) {
-         showAnimalsRegistered();
-         reader.nextLine();
-         System.out.println("\nDigite el nombre del animal a consultar su costo mensual de alimentaciÃ³n");
-         String var0 = reader.nextLine();
-         double var1 = ((Zoo) myZoo).getMonthlyFoodCostFromAnimal(var0);
-         if (var1 >= (double)0.0F) {
-            System.out.printf("\nEl costo mensual de alimentacion de " + var0 + " es: $ %.2f%n", var1);
-         } else {
-            System.out.println("Error! No se pudo calcular el costo mensual de alimentacion para el animal proporcionado");
-         }
       } else {
          System.out.println("Error! Zoologico aun no registrado");
       }

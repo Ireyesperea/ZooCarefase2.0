@@ -1,6 +1,6 @@
 package model;
 
-public class Feeding extends Activity {
+public class Feeding {
     
     private String animalId;
     private String habiatatId;
@@ -9,7 +9,7 @@ public class Feeding extends Activity {
 
     public Feeding(String id, String scheduleDate , String executionDate , double rationWeight, String dietType, String animalId ){
         
-        super(id, scheduleDate, executionDate, PersonInCharge());
+        super();
         this.animalId = animalId;
         String habitatId = null;
         this.habiatatId = habitatId;
@@ -17,12 +17,6 @@ public class Feeding extends Activity {
         this.rationWeight = rationWeight;
     }
 
-    private static String PersonInCharge() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'PersonInCharge'");
-    }
-
-    @Override 
     public String getActivityType(){
       
         return "Alimentacion";
