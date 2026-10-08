@@ -1,18 +1,18 @@
 package model;
 
 public enum EnvironmentType {
-   LAND("Terrestre"),
-   WATER("Acuatico"),
+   TERRESTRIAL("Terrestre"),
+   AQUATIC("Acuatico"),
    AVIARY("Aviario"),
    MEDICAL("Medico");
 
-   private String typeName;
+   private final String label;
 
    private EnvironmentType(String var3) {
-      this.typeName = var3;
+      this.label = var3;
    }
 
-   public String getTypeName() {
-      return this.typeName;
+   public String toString() {
+      return this.label;
    }
 }

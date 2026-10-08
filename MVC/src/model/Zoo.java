@@ -1,121 +1,148 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Zoo {
    private String name;
    private String city;
+   private String legalRepId;
+   private String legalRepName;
+   private double monthlyBudget;
+   private boolean infoRegistered = false;
+   private ArrayList<Employee> employees = new ArrayList<Employee>();
+   private ArrayList<Habitat> habitats = new ArrayList<Habitat>();
+   private ArrayList<Animal> animals = new ArrayList<Animal>();
+   private int employeeCounter;
+   private int habitatCounter;
+   private int animalCounter;
    private String address;
-   private double budget;
-   private Habitat[] myHabitats;
 
-   public Zoo(String var1, String var2, String var3, double var4) {
-      this.name = var1;
+   public Zoo(String var1, String var2, String var3, String var4, String var5, double var6) {
+       this.name = var1;
       this.city = var2;
       this.address = var3;
-      this.budget = var4;
-      this.myHabitats = new Habitat[33];
-      this.createVeterinaryClinic();
+      this.legalRepId = var4;
+      this.legalRepName = var5;
+      this.monthlyBudget = var6;
+      this.infoRegistered = true;
    }
 
-   public String getInformation() {
-      return this.name + "-" + this.city + "-" + this.address + "-" + this.budget;
+    public boolean isInfoRegistered() {
+      return this.infoRegistered;
    }
 
-   private void createVeterinaryClinic() {
-      this.addHabitat("Clinica Veterinaria", 4, (double)4.0E7F, 25);
+   public double getMonthlyBudget() {
+      return this.monthlyBudget;
    }
 
-   public boolean addHabitat(String var1, int var2, double var3, int var5) {
-      if (this.myHabitats != null) {
-         for(int var6 = 0; var6 < this.myHabitats.length; ++var6) {
-            if (this.myHabitats[var6] == null) {
-               this.myHabitats[var6] = new Habitat(var1, this.calculateEnvironmentType(var2), var3, var5);
-               return true;
-            }
+   public void setMonthlyBudget(double var1) {
+      this.monthlyBudget = var1;
+   }
+
+   public String getInfoDetails() {
+      String var10000 = this.name;
+      return "Name: " + var10000 + "\nCity: " + this.city + "\nAddress: " + this.address + "\nLegal representative ID: " + this.legalRepId + "\nLegal representative: " + this.legalRepName + "\nMonthly budget: " + String.format("%,.0f", this.monthlyBudget) + " COP";
+   }
+
+   public ArrayList<Employee> getEmployees() {
+      return this.employees;
+   }
+
+   public ArrayList<Habitat> getHabitats() {
+      return this.habitats;
+   }
+
+   public ArrayList<Animal> getAnimals() {
+      return this.animals;
+   }
+
+   public String generateEmployeeCode() {
+      ++this.employeeCounter;
+      return String.format("E%03d", this.employeeCounter);
+   }
+
+   public String generateHabitatCode() {
+      ++this.habitatCounter;
+      return String.format("H%02d", this.habitatCounter);
+   }
+
+   public String generateAnimalCode() {
+      ++this.animalCounter;
+      return String.format("A%03d", this.animalCounter);
+   }
+
+   public Employee findEmployee(String var1) {
+      for(int var2 = 0; var2 < this.employees.size(); ++var2) {
+         if (((Employee)this.employees.get(var2)).getCode().equalsIgnoreCase(var1)) {
+            return (Employee)this.employees.get(var2);
          }
       }
 
-      return false;
+      return null;
    }
 
-   public boolean hasAvailableHabitat() {
-      if (this.myHabitats != null) {
-         for(int var1 = 0; var1 < this.myHabitats.length; ++var1) {
-            if (this.myHabitats[var1] != null) {
-               return true;
-            }
+   public Habitat findHabitat(String var1) {
+      for(int var2 = 0; var2 < this.habitats.size(); ++var2) {
+         if (((Habitat)this.habitats.get(var2)).getCode().equalsIgnoreCase(var1)) {
+            return (Habitat)this.habitats.get(var2);
          }
       }
 
-      return false;
+      return null;
    }
 
-   public String getHabitatList() {
-      String var1 = "";
-      if (this.myHabitats != null) {
-         for(int var2 = 0; var2 < this.myHabitats.length; ++var2) {
-            if (this.myHabitats[var2] != null) {
-               var1 = var1 + "\n" + this.myHabitats[var2].getName() + "-" + this.myHabitats[var2].getEnvironment().getTypeName();
-            }
+   public Animal findAnimal(String var1) {
+      for(int var2 = 0; var2 < this.animals.size(); ++var2) {
+         if (((Animal)this.animals.get(var2)).getCode().equalsIgnoreCase(var1)) {
+            return (Animal)this.animals.get(var2);
          }
       }
 
-      return var1;
-   }
-
-   public boolean addAnimalInHabitat(String var1, String var2, double var3, String var5, String var6, String var7) {
-      if (this.myHabitats != null) {
-         for(int var8 = 0; var8 < this.myHabitats.length; ++var8) {
-            if (this.myHabitats[var8] != null && this.myHabitats[var8].getName().equals(var1)) {
-               Animal var9 = new Animal(var2, var3, var5, var6, var7);
-               return this.myHabitats[var8].addAnimal(var9);
-            }
-         }
-      }
-
-      return false;
-   }
-
-   public String getAllAnimalList() {
-      String var1 = "";
-
-      for(int var2 = 0; var2 < this.myHabitats.length; ++var2) {
-         if (this.myHabitats[var2] != null) {
-            var1 = var1 + this.myHabitats[var2].getAnimalList() + "\n";
-         }
-      }
-
-      return var1;
-   }
-
-   public EnvironmentType calculateEnvironmentType(int var1) {
-      EnvironmentType[] var2 = EnvironmentType.values();
-      return var2[var1 - 1];
-   }
-
-   public String getEnvironmentTypeList() {
-      String var1 = "";
-      EnvironmentType[] var2 = EnvironmentType.values();
-
-      for(int var3 = 0; var3 < var2.length; ++var3) {
-         var1 = var1 + (var3 + 1) + ". " + var2[var3].getTypeName() + "\n";
-      }
-
-      return var1;
+      return null;
    }
 
    public void setName(String var1) {
-      this.name = var1;
+
+	throw new UnsupportedOperationException("Unimplemented method 'setName'");
    }
 
-   public void setCity(String var1) {
-      this.city = var1;
+   public void setCity(String var2) {
+    
+    throw new UnsupportedOperationException("Unimplemented method 'setCity'");
    }
 
-   public void setAddress(String var1) {
-      this.address = var1;
+   public char[] getInformation() {
+
+    throw new UnsupportedOperationException("Unimplemented method 'getInformation'");
    }
 
-   public void setBudget(double var1) {
-      this.budget = var1;
+   public char[] getEnvironmentTypeList() {
+
+	throw new UnsupportedOperationException("Unimplemented method 'getEnvironmentTypeList'");
+   }
+
+   public boolean addHabitat(String var0, int var1, double var2, int var4) {
+	
+	throw new UnsupportedOperationException("Unimplemented method 'addHabitat'");
+   }
+
+   public boolean addAnimalInHabitat(String var6, String var0, double var1, String var3, String var4, String var5) {
+	
+	throw new UnsupportedOperationException("Unimplemented method 'addAnimalInHabitat'");
+   }
+
+   public boolean hasAvailableHabitat() {
+	
+	throw new UnsupportedOperationException("Unimplemented method 'hasAvailableHabitat'");
+   }
+
+   public char[] getAllAnimalList() {
+	
+	throw new UnsupportedOperationException("Unimplemented method 'getAllAnimalList'");
+   }
+
+   public void setInfo(String trim, String trim2, String trim3, String trim4, String trim5, double var6) {
+    
+    throw new UnsupportedOperationException("Unimplemented method 'setInfo'");
    }
 }

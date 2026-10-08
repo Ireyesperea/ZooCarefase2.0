@@ -1,39 +1,68 @@
 package model;
 
 public class Employee {
-    private String id;
-    private String fullName;
-    private String phone;
-    private String email;
-    private String role; // rol de veterinario o cuidador
-    private String status; // estado de activo o inactivo 
+   private final String code;
+   private String fullName;
+   private String phone;
+   private String email;
+   private Role role;
+   private boolean active;
 
-    public Employee(String id, String fullName, String phone , String email, String role){
+   public Employee(String var1, String var2, String var3, String var4, Role var5) {
+      this.code = var1;
+      this.fullName = var2;
+      this.phone = var3;
+      this.email = var4;
+      this.role = var5;
+      this.active = true;
+   }
 
-        this.id = id;
-        this.fullName = fullName;
-        this.phone = phone;
-        this.email = email;
-        this.role = role;
-        this.status = "activo";
-    }
+   public String getCode() {
+      return this.code;
+   }
 
-    public void desactivate() {
-        this.status = "inactivo";
-    }
-    public String getSummary() {
-        return "Codigo:" + id + "| Nombre: " + fullName + "|Rol:" + role + "|Estado: " + status;
-    }
-    public String getIdString () { return id;}
-    public String getFullName () { return phone;}
-    public String getEmail () { return email;}
-    public String getRole() {return role;}
-    public String getStatus() { return status;}
-   
-    public void setFullName(String fullName) {this.fullName = fullName;
+   public String getFullName() {
+      return this.fullName;
+   }
 
- } 
-    public void setPhone(String phone) {this.phone = phone;}
-    public void setEmial(String email) {this.email = email;}
+   public void setFullName(String var1) {
+      this.fullName = var1;
+   }
 
+   public String getPhone() {
+      return this.phone;
+   }
+
+   public void setPhone(String var1) {
+      this.phone = var1;
+   }
+
+   public String getEmail() {
+      return this.email;
+   }
+
+   public void setEmail(String var1) {
+      this.email = var1;
+   }
+
+   public Role getRole() {
+      return this.role;
+   }
+
+   public void setRole(Role var1) {
+      this.role = var1;
+   }
+
+   public boolean isActive() {
+      return this.active;
+   }
+
+   public void setActive(boolean var1) {
+      this.active = var1;
+   }
+
+   public String getDetails() {
+      String var10000 = this.code;
+      return "Code: " + var10000 + "\nName: " + this.fullName + "\nPhone: " + this.phone + "\nEmail: " + this.email + "\nRole: " + String.valueOf(this.role) + "\nStatus: " + (this.active ? "Active" : "Inactive");
+   }
 }

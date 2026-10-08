@@ -1,217 +1,255 @@
 package ui;
 
 import java.util.Scanner;
-import model.Zoo;
+import model.ZooController;
 
 public class ZooCareMain {
-   private static Scanner reader;
-   private static Zoo myZoo;
+   private Scanner scanner;
+   private ZooController controller;
 
    public ZooCareMain() {
+      this.scanner = new Scanner(System.in);
+      this.controller = new ZooController();
    }
 
    public static void main(String[] var0) {
-      menu();
+      ZooCareMain var1 = new ZooCareMain();
+      var1.showMainMenu();
    }
 
-   public static void menu() {
-      System.out.print("\u001b[H\u001b[2J");
-      int var0 = 0;
+   private String readText(String var1) {
+      String var2 = "";
 
-      do {
-         System.out.println("Bienvenido a ZooCare");
-         System.out.println("1. Registrar informacion general del zoologico");
-         System.out.println("2. Consultar informacion general del zoologico");
-         System.out.println("3. Modificar informacion general del zoologico");
-         System.out.println("4. Registrar habitat");
-         System.out.println("5. Registrar animal");
-         System.out.println("6. Mostrar lista de animales");
+      while(var2.trim().isEmpty()) {
+         System.out.print(var1);
+         var2 = this.scanner.nextLine();
+         if (var2.trim().isEmpty()) {
+            System.out.println("The value cannot be empty.");
+         }
+      }
+
+      return var2.trim();
+   }
+
+   private int readInt(String var1) {
+      while(true) {
+         System.out.print(var1);
+
+         try {
+            return Integer.parseInt(this.scanner.nextLine().trim());
+         } catch (NumberFormatException var3) {
+            System.out.println("Por favor, ingrese un numero entero");
+         }
+      }
+   }
+
+   private double readDouble(String var1) {
+      while(true) {
+         System.out.print(var1);
+
+         try {
+            return Double.parseDouble(this.scanner.nextLine().trim());
+         } catch (NumberFormatException var3) {
+            System.out.println("Por favor, ingrese un numero decimal (use a dot for decimals).");
+         }
+      }
+   }
+
+   public void showMainMenu() {
+      int var1 = -1;
+
+      while(var1 != 0) {
+         System.out.println("          MENU               ");
+         System.out.println("1. imformacion del zoo");
+         System.out.println("2. Empleados");
+         System.out.println("3. Habitats");
+         System.out.println("4. Animales");
+         System.out.println("5. Costos de alimentacion");
          System.out.println("0. Salir");
-         var0 = reader.nextInt();
-         switch (var0) {
+         var1 = this.readInt("Elige una opcion: ");
+         switch (var1) {
             case 0:
                System.out.println("Adios!");
                break;
             case 1:
-               registerZooInformation();
+               this.zooMenu();
                break;
             case 2:
-               showZooInformation();
+               this.staffMenu();
                break;
             case 3:
-               modifyZooInformation();
+               this.habitatMenu();
                break;
             case 4:
-               registerHabitat();
+               this.animalMenu();
                break;
             case 5:
-               registerAnimal();
-               break;
-            case 6:
-               showAnimalsRegistered();
-         }
-
-         if (var0 != 0) {
-            clearConsole();
-         }
-      } while(var0 != 0);
-
-   }
-
-   public static int clearConsole() {
-      int var0;
-      for(var0 = 0; var0 != 1; var0 = reader.nextInt()) {
-         System.out.println("\nDesea volver al menu principal?");
-         System.out.println("1. Si");
-         System.out.println("2. No");
-      }
-
-      System.out.print("\u001b[H\u001b[2J");
-      return var0;
-   }
-
-   public static void registerZooInformation() {
-      if (myZoo == null) {
-         reader.nextLine();
-         System.out.println("\nDigite el nombre del zoologico");
-         String var0 = reader.nextLine();
-         System.out.println("Digite la ciudad del zoologico");
-         String var1 = reader.nextLine();
-         System.out.println("Digite la direccion del zoologico");
-         String var2 = reader.nextLine();
-         System.out.println("Digite el presupuesto del zoologico");
-         double var3 = reader.nextDouble();
-         myZoo = new Zoo(var0, var1, var2, var3);
-         System.out.println("Exito! Zoologico registrado exitosamente!");
-      } else {
-         System.out.println("Error! Ya existe un zoologico registrado");
-      }
-
-   }
-
-   public static void showZooInformation() {
-      if (myZoo != null) {
-         System.out.println(myZoo.getInformation());
-      } else {
-         System.out.println("Error! Zoologico aun no registrado");
-      }
-
-   }
-
-   public static void modifyZooInformation() {
-      if (myZoo != null) {
-         System.out.println("\nMenu de cambios de informacion general del Zoologico");
-         System.out.println("1. Cambiar el nombre del Zoologico");
-         System.out.println("2. Cambiar la ciudad del Zoologico");
-         System.out.println("3. Cambiar la direcciÃ³n del Zoologico");
-         System.out.println("4. Cambiar el presupuesto del Zoologico");
-         int var0 = reader.nextInt();
-         switch (var0) {
-            case 1:
-               reader.nextLine();
-               System.out.print("\nPor favor ingresa el nuevo nombre del Zoologico: ");
-               String var1 = reader.nextLine();
-               System.out.println("Dato registrado correctamente");
-               myZoo.setName(var1);
-               break;
-            case 2:
-               reader.nextLine();
-               System.out.print("\nPor favor ingresa la nueva ciudad del Zoologico: ");
-               String var2 = reader.nextLine();
-               System.out.println("Dato registrado correctamente");
-               myZoo.setCity(var2);
-               break;
-            case 3:
-               reader.nextLine();
-               System.out.print("\nPor favor ingresa la nueva direccion del Zoologico: ");
-               String var3 = reader.nextLine();
-               System.out.println("Dato registrado correctamente");
-               myZoo.setCity(var3);
-               break;
-            case 4:
-               System.out.print("\nPor favor ingresa el nuevo presupuesto del Zoologico: ");
-               double var4 = reader.nextDouble();
-               System.out.println("Dato registrado correctamente");
-               myZoo.setBudget(var4);
+               this.feedingMenu();
                break;
             default:
-               System.out.print("\nDigite una opcion valida");
+               System.out.println("Invalid option.");
          }
-      } else {
-         System.out.println("Error! Zoologico aun no registrado");
       }
 
    }
 
-   public static void registerHabitat() {
-      if (myZoo != null) {
-         reader.nextLine();
-         System.out.println("\nDigite el nombre del habitat");
-         String var0 = reader.nextLine();
-         System.out.println("Digite el ambiente del habitat");
-         System.out.println(myZoo.getEnvironmentTypeList());
-         int var1 = reader.nextInt();
-         System.out.println("Digite el area del habitat");
-         double var2 = reader.nextDouble();
-         System.out.println("Digite la capacidad maxima del habitat");
-         int var4 = reader.nextInt();
-         boolean var5 = myZoo.addHabitat(var0, var1, var2, var4);
-         if (var5) {
-            System.out.println("Exito! Habitat registrado");
-         } else {
-            System.out.println("Error. Habitat no registrado");
-         }
+   private void zooMenu() {
+      System.out.println("---- Imformacion del zoo ---");
+      System.out.println("1. Register / replace information");
+      System.out.println("2. View information");
+      System.out.println("3. Update monthly budget");
+      int var1 = this.readInt("Choose an option: ");
+      if (var1 == 1) {
+         String var2 = this.readText("Zoo name: ");
+         String var3 = this.readText("City: ");
+         String var4 = this.readText("Address: ");
+         String var5 = this.readText("Legal representative ID: ");
+         String var6 = this.readText("Legal representative full name: ");
+         double var7 = this.readDouble("Monthly budget (COP): ");
+         System.out.println(this.controller.registerZooInfo(var2, var3, var4, var5, var6, var7));
+      } else if (var1 == 2) {
+         System.out.println(this.controller.getZooInfo());
+      } else if (var1 == 3) {
+         double var9 = this.readDouble("New monthly budget (COP): ");
+         System.out.println(this.controller.updateZooBudget(var9));
       } else {
-         System.out.println("Error! Zoologico aun no registrado");
+         System.out.println("Invalid option.");
       }
 
    }
 
-   public static void registerAnimal() {
-      if (myZoo != null) {
-         if (myZoo.hasAvailableHabitat()) {
-            reader.nextLine();
-            System.out.println("\nDigite el nombre del animal");
-            String var0 = reader.nextLine();
-            System.out.println("\nDigite el peso del animal");
-            double var1 = reader.nextDouble();
-            reader.nextLine();
-            System.out.println("\nDigite el tipo de dieta del animal (herbivora, carnivora, omnivora, insectivora)");
-            String var3 = reader.nextLine();
-            System.out.println("\nDigite la etapa de vida del animal (juvenil o adulto)");
-            String var4 = reader.nextLine();
-            System.out.println("\nDigite el estado de salud del animal (saludable, cuarentena, recuperacion, en observacion)");
-            String var5 = reader.nextLine();
-            System.out.println("\nA continuacion se presenta el listado de habitats registrados:");
-            System.out.println(myZoo.getHabitatList());
-            System.out.println("\nDigite el nombre del habitat al que se registrara el animal");
-            String var6 = reader.nextLine();
-            boolean var7 = myZoo.addAnimalInHabitat(var6, var0, var1, var3, var4, var5);
-            if (var7) {
-               System.out.println("Animal registrado exitosamente");
-            } else {
-               System.out.println("Error! No se pudo registrar el animal");
-            }
-         } else {
-            System.out.println("Error! Habitats aun no registrados");
-         }
+   private void staffMenu() {
+      System.out.println("\n--- Empleados ---");
+      System.out.println("1. Registrar empleado");
+      System.out.println("2. Buscar empleado por código");
+      System.out.println("3. Modificar empleado");
+      System.out.println("4. Lista de empleados activos");
+      int var1 = this.readInt("elige una opcion: ");
+      if (var1 == 1) {
+         String var2 = this.readText("Full name: ");
+         String var3 = this.readText("Phone: ");
+         String var4 = this.readText("Email: ");
+         int var5 = this.readInt("Role (1. Keeper, 2. Veterinarian): ");
+         System.out.println(this.controller.registerEmployee(var2, var3, var4, var5));
+      } else if (var1 == 2) {
+         System.out.println(this.controller.findEmployee(this.readText("Employee code: ")));
+      } else if (var1 == 3) {
+         String var6 = this.readText("Employee code: ");
+         System.out.println("Field: 1. Name, 2. Phone, 3. Email, 4. Role (1 keeper, 2 vet), 5. Status (1 active, 2 inactive)");
+         int var7 = this.readInt("Field to change: ");
+         String var8 = this.readText("New value: ");
+         System.out.println(this.controller.updateEmployee(var6, var7, var8));
+      } else if (var1 == 4) {
+         System.out.println(this.controller.listActiveEmployees());
       } else {
-         System.out.println("Error! Zoologico aun no registrado");
+         System.out.println("Invalid option.");
       }
 
    }
 
-   public static void showAnimalsRegistered() {
-      if (myZoo != null) {
-         System.out.println("Lista de animales registrados");
-         System.out.println(myZoo.getAllAnimalList());
+   private void habitatMenu() {
+      System.out.println("\n--- Habitats ---");
+      System.out.println("1. registrar habitat");
+      System.out.println("2. Find habitat by code");
+      System.out.println("3. Modificar habitat");
+      System.out.println("4. Lista de habitats");
+      System.out.println("5. ocupacion de habitats");
+      int var1 = this.readInt("elige una opcion: ");
+      if (var1 == 1) {
+         String var2 = this.readText("Name: ");
+         int var3 = this.readInt("Environment (1. Terrestrial, 2. Aquatic, 3. Aviary, 4. Medical): ");
+         double var4 = this.readDouble("Temperature (C): ");
+         double var6 = this.readDouble("Area (m2): ");
+         double var8 = this.readDouble("Monthly budget (COP): ");
+         int var10 = this.readInt("Maximum capacity: ");
+         int var11 = this.readInt("Status (1. Active, 2. Under maintenance, 3. Under construction): ");
+         System.out.print("Responsible employee codes separated by commas (empty for none): ");
+         String var12 = this.scanner.nextLine();
+         System.out.println(this.controller.registerHabitat(var2, var3, var4, var6, var8, var10, var11, var12));
+      } else if (var1 == 2) {
+         System.out.println(this.controller.findHabitat(this.readText("Habitat code: ")));
+      } else if (var1 == 3) {
+         String var13 = this.readText("Habitat code: ");
+         System.out.println("Field: 1. Name, 2. Environment, 3. Temperature, 4. Area, 5. Budget, 6. Capacity, 7. Status, 8. Staff");
+         System.out.println("(environment: 1 terrestrial, 2 aquatic, 3 aviary, 4 medical; status: 1 active, 2 maintenance, 3 construction, 4 retired)");
+         int var14 = this.readInt("Field to change: ");
+         System.out.print("New value: ");
+         String var15 = this.scanner.nextLine();
+         System.out.println(this.controller.updateHabitat(var13, var14, var15));
+      } else if (var1 == 4) {
+         System.out.println(this.controller.listHabitats());
+      } else if (var1 == 5) {
+         System.out.println(this.controller.getHabitatOccupancy(this.readText("Habitat code: ")));
       } else {
-         System.out.println("Error! Zoologico aun no registrado");
+         System.out.println("Invalid option.");
       }
 
    }
 
-   static {
-      reader = new Scanner(System.in);
+   private void animalMenu() {
+      System.out.println("\n--- Animales ---");
+      System.out.println("1. Registarar animales");
+      System.out.println("2. Buscar animal por codigo");
+      System.out.println("3. Modificar animal");
+      System.out.println("4. Transferir animal");
+      System.out.println("5. Retire animal");
+      System.out.println("6. Lista activa de animales");
+      int var1 = this.readInt("elige una opcion: ");
+      if (var1 == 1) {
+         String var2 = this.readText("Name: ");
+         String var3 = this.readText("Species: ");
+         String var4 = this.readText("Sex: ");
+         int var5 = this.readInt("Birth year: ");
+         double var6 = this.readDouble("Weight (kg): ");
+         int var8 = this.readInt("Diet (1. Herbivore, 2. Carnivore, 3. Omnivore, 4. Insectivore): ");
+         int var9 = this.readInt("Required environment (1. Terrestrial, 2. Aquatic, 3. Aviary): ");
+         String var10 = this.readText("Origin country: ");
+         String var11 = this.readText("Entry date (yyyy-MM-dd): ");
+         int var12 = this.readInt("Life stage (1. Juvenile, 2. Adult): ");
+         int var13 = this.readInt("Health (1. Healthy, 2. Quarantine, 3. Recovery, 4. Under observation): ");
+         String var14 = this.readText("Habitat code: ");
+         System.out.println(this.controller.registerAnimal(var2, var3, var4, var5, var6, var8, var9, var10, var11, var12, var13, var14));
+      } else if (var1 == 2) {
+         System.out.println(this.controller.findAnimal(this.readText("Animal code: ")));
+      } else if (var1 == 3) {
+         String var15 = this.readText("Animal code: ");
+         System.out.println("Field: 1. Name, 2. Species, 3. Sex, 4. Weight, 5. Diet, 6. Required environment, 7. Life stage, 8. Health");
+         int var18 = this.readInt("Field to change: ");
+         String var21 = this.readText("New value (options use the same numbers as the registration): ");
+         System.out.println(this.controller.updateAnimal(var15, var18, var21));
+      } else if (var1 == 4) {
+         String var16 = this.readText("Animal code: ");
+         String var19 = this.readText("Destination habitat code: ");
+         System.out.println(this.controller.transferAnimal(var16, var19));
+      } else if (var1 == 5) {
+         String var17 = this.readText("Animal code: ");
+         int var20 = this.readInt("Reason (1. Death, 2. Transferred to another zoo): ");
+         System.out.println(this.controller.retireAnimal(var17, var20));
+      } else if (var1 == 6) {
+         System.out.println(this.controller.listActiveAnimals());
+      } else {
+         System.out.println("Invalid option.");
+      }
+
+   }
+
+   private void feedingMenu() {
+      System.out.println("\n--- Costos de alimentacion ---");
+      System.out.println("1. Cost of an animal");
+      System.out.println("2. Cost of a habitat");
+      System.out.println("3. Cost of the whole zoo");
+      int var1 = this.readInt("Choose an option: ");
+      if (var1 == 1) {
+         System.out.println(this.controller.calculateAnimalFeeding(this.readText("Animal code: ")));
+      } else if (var1 == 2) {
+         System.out.println(this.controller.calculateHabitatFeeding(this.readText("Habitat code: ")));
+      } else if (var1 == 3) {
+         System.out.println(this.controller.calculateZooFeeding());
+      } else {
+         System.out.println("Invalid option.");
+      }
+
    }
 }
+
+       
