@@ -132,7 +132,7 @@ public class Animal {
    public double calculateDailyRation() {
       double var1 = this.weight * this.diet.getRationFactor();
       double var3 = (double)0.0F;
-      if (this.lifeStage == LifeStage.JUVENILE) {
+      if (this.lifeStage == LifeStage.JUVENIL) {
          var3 = 0.2;
       }
 

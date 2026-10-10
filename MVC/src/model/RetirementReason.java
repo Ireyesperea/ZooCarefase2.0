@@ -2,7 +2,7 @@ package model;
 
 public enum RetirementReason {
    DEATH("Muerte"),
-   TRANSFERRED("Transferido a otro zoológico");
+   TRANSFERRED("Transferido a otro zoo");
 
    private final String label;
 

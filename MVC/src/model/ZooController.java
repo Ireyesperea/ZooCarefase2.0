@@ -1,7 +1,5 @@
-package model;
+ package model;
 
-
-    
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -77,7 +75,7 @@ public class ZooController {
    private String occupancyWarning(Habitat var1) {
       if (var1.isOccupancyAlert()) {
          String var10000 = var1.getName();
-         return "\nWARNING: occupancy alert in " + var10000 + " (" + String.format("%.1f", var1.getOccupancyPercentage()) + "%).";
+         return "ARLETT!!: occupancy alert in " + var10000 + " (" + String.format("%.1f", var1.getOccupancyPercentage()) + "%).";
       } else {
          return "";
       }
@@ -290,15 +288,15 @@ public class ZooController {
                case 5:
                   double var8 = Double.parseDouble(var3.trim());
                   if (var8 < (double)0.0F) {
-                     return "Error: the budget cannot be negative.";
+                     return "Error: the budget  negative.";
                   }
 
                   var4.setMonthlyBudget(var8);
                   break;
                case 6:
                   int var10 = Integer.parseInt(var3.trim());
-                  if (var10 <= 0) {
-                     return "Error: the capacity must be greater than zero.";
+                  if (var10 < 0) {
+                     return "Error: the capacity must be greater than or equal to zero.";
                   }
 
                   if (var10 < var4.getOccupancy()) {
@@ -310,15 +308,15 @@ public class ZooController {
                case 7:
                   HabitatStatus var11 = (HabitatStatus)this.optionToValue(HabitatStatus.values(), Integer.parseInt(var3.trim()));
                   if (var11 == null) {
-                     return "Error: invalid status option.";
+                     return "Error: invalid status optioon.";
                   }
 
                   if (var11 != HabitatStatus.ACTIVE && var4.getOccupancy() > 0) {
-                     return "Error: a habitat with animals must stay active.";
+                     return "Error: a habitat with animals muust stay actiive.";
                   }
 
                   if (var11 == HabitatStatus.RETIRED && var4.getEnvironment() == EnvironmentType.MEDICAL) {
-                     return "Error: the veterinary clinic cannot be retired.";
+                     return "Error: thee veterinary clinic cannot be retired.";
                   }
 
                   var4.setStatus(var11);
@@ -326,13 +324,13 @@ public class ZooController {
                case 8:
                   ArrayList<Employee> var12 = this.parseStaff(var3);
                   if (var12 == null) {
-                     return "Error: some responsible employee does not exist or is inactive.";
+                     return "Error: some responsible emplloyee does not exist or is inactive.";
                   }
 
                   var4.setStaff(var12);
                   break;
                default:
-                  return "Error: invalid field.";
+                  return "Error: invalidd field.";
             }
          } catch (NumberFormatException var13) {
             return "Error: the value must be a number.";
@@ -373,7 +371,7 @@ public class ZooController {
             if (var5 <= (double)0.0F) {
                return "Error: the weight must be greater than zero.";
             } else if (var4 > LocalDate.now().getYear()) {
-               return "Error: the birth year cannot be in the future.";
+               return "Error: the date birth year cannot be in the future.";
             } else {
                LocalDate var18;
                try {
@@ -560,7 +558,7 @@ public class ZooController {
       for(int var2 = 0; var2 < this.zoo.getAnimals().size(); ++var2) {
          Animal var3 = (Animal)this.zoo.getAnimals().get(var2);
          if (var3.isActive()) {
-            var1 = var1 + var3.getCode() + " | " + var3.getName() + " | " + var3.getSpecies() + " | " + var3.getHabitat().getName() + " | " + String.valueOf(var3.getDiet()) + " | " + String.valueOf(var3.getHealth()) + "\n";
+            var1 = var1 + var3.getCode() + " | " + var3.getName() + " | " + var3.getSpecies() + " | " + String.valueOf(var3.getHealth()) + "\n";
          }
       }
 
@@ -571,43 +569,13 @@ public class ZooController {
       }
    }
 
-   public String calculateAnimalFeeding(String var1) {
-      Animal var2 = this.zoo.findAnimal(var1);
-      if (var2 == null) {
-         return "Error: there is no animal with code " + var1 + ".";
-      } else {
-         String var10000 = var2.getName();
-         return "Animal " + var10000 + ": daily ration " + String.format("%.2f", var2.calculateDailyRation()) + " kg, estimated monthly cost " + this.money(var2.calculateMonthlyFeedingCost());
-      }
+   public char[] calculateHabitatFeeding(String text) {
+      throw new UnsupportedOperationException("Unimplemented method 'calculateHabitatFeeding'");
    }
 
-   public String calculateHabitatFeeding(String var1) {
-      Habitat var2 = this.zoo.findHabitat(var1);
-      if (var2 == null) {
-         return "Error: there is no habitat with code " + var1 + ".";
-      } else {
-         double var3 = (double)0.0F;
-
-         for(int var5 = 0; var5 < var2.getAnimals().size(); ++var5) {
-            var3 += ((Animal)var2.getAnimals().get(var5)).calculateMonthlyFeedingCost();
-         }
-
-         String var10000 = var2.getName();
-         return "Habitat " + var10000 + ": estimated monthly feeding cost " + this.money(var3);
-      }
-   }
-
-   public String calculateZooFeeding() {
-      double var1 = (double)0.0F;
-
-      for(int var3 = 0; var3 < this.zoo.getAnimals().size(); ++var3) {
-         if (((Animal)this.zoo.getAnimals().get(var3)).isActive()) {
-            var1 += ((Animal)this.zoo.getAnimals().get(var3)).calculateMonthlyFeedingCost();
-         }
-      }
-
-      String var10000 = this.money(var1);
-      return "Zoo: estimated monthly feeding cost " + var10000;
+   public char[] calculateZooFeeding() {
+      throw new UnsupportedOperationException("Unimplemented method 'calculateZooFeeding'");
    }
 }
+
 

@@ -1,8 +1,8 @@
 package model;
 
 public enum Role {
-   KEEPER("Keeper"),
-   VETERINARIAN("Veterinarian");
+   KEEPER("Cuidador"),
+   VETERINARIAN("Veterinario");
 
    private final String label;
 

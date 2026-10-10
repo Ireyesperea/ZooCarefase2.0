@@ -41,7 +41,7 @@ public class Zoo {
 
    public String getInfoDetails() {
       String var10000 = this.name;
-      return "Name: " + var10000 + "\nCity: " + this.city + "\nAddress: " + this.address + "\nLegal representative ID: " + this.legalRepId + "\nLegal representative: " + this.legalRepName + "\nMonthly budget: " + String.format("%,.0f", this.monthlyBudget) + " COP";
+      return "Name: " + var10000 + "\nCity: " + this.city + "Address: " + this.address + "Legal representative ID: " + this.legalRepId + "Legal representative: " + this.legalRepName + "Monthly budget: " + String.format("%,.0f", this.monthlyBudget) + " COP";
    }
 
    public ArrayList<Employee> getEmployees() {
