@@ -24,7 +24,7 @@ public class ZooCareMain {
          System.out.print(var1);
          var2 = this.scanner.nextLine();
          if (var2.trim().isEmpty()) {
-            System.out.println("The value cannot empty.");
+            System.out.println("The value canno empty.");
          }
       }
 
