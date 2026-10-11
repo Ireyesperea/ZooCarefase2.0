@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-
+/**
+ * Stores the general information of the zoo and all its employees, habitats and animals.
+ */
 public class Zoo {
    private String name;
    private String city;
